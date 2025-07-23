@@ -308,7 +308,7 @@ fn parse_cfs_quota_and_period(mut file: File) -> Result<CfsQuotaAndPeriod> {
         .map_err(|e| Error::with_cause(ReadFailed("cpu.max".to_string()), e))?;
 
     let fields = content.trim().split(' ').collect::<Vec<&str>>();
-    if fields.len() != 2 {
+    if fields.len() < 2 {
         return Err(Error::from_string(format!("invaild format: {}", content)));
     }
 
