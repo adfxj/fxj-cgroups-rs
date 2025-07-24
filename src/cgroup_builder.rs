@@ -96,6 +96,14 @@ impl CgroupBuilder {
         }
     }
 
+    pub fn new_with_specified_controllers(name: &str, specified_controllers: Option<Vec<String>>) -> CgroupBuilder {
+        CgroupBuilder {
+            name: name.to_owned(),
+            resources: Resources::default(),
+            specified_controllers,
+        }
+    }
+
     /// Builds the memory resources of the control group.
     pub fn memory(self) -> MemoryResourceBuilder {
         MemoryResourceBuilder { cgroup: self }

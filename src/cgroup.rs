@@ -95,7 +95,9 @@ impl Cgroup {
     /// Returns a handle to the control group that can be used to manipulate it.
     pub fn new<P: AsRef<Path>>(hier: Box<dyn Hierarchy>, path: P) -> Result<Cgroup> {
         let cg = Cgroup::load(hier, path);
-        cg.create()?;
+        if !cg.exists() {
+            cg.create()?;
+        }
         Ok(cg)
     }
 
@@ -112,7 +114,9 @@ impl Cgroup {
         } else {
             Cgroup::load(hier, path)
         };
-        cg.create()?;
+        if !cg.exists() {
+            cg.create()?;
+        }
         Ok(cg)
     }
 
